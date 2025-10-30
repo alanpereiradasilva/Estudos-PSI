@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de Usuário{% endblock %}
+
+{% block content %}
+    <h1>Bem-vindo(a), {{ user.username }}!</h1>
+    <p>Este é o seu painel de perfil. Aqui você pode ver e gerenciar suas informações.</p>
+    
+    <h2>Detalhes:</h2>
+    <ul>
+        <li>**ID:** {{ user.id }}</li>
+        <li>**Nome de Usuário:** {{ user.username }}</li>
+        <li>**Email:** {{ user.email }}</li>
+    </ul>
+    
+    <p><a href="{{ url_for('product.list_products') }}">Ver meus Produtos</a></p>
+    
+    {% endblock %}
