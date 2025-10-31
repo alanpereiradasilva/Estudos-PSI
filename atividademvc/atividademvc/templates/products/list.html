@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Meus Produtos{% endblock %}
+
+{% block content %}
+    <h1>Seus Produtos</h1>
+    <p><a href="{{ url_for('product.add_product') }}">Adicionar Novo Produto</a></p>
+    
+    {% if not products %}
+        <p>Você ainda não cadastrou nenhum produto.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>R$ {{ "%.2f"|format(product.price) }}</td>
+                        <td>{{ product.description | truncate(50) }}</td>
+                        <td>
+                            <a href="{{ url_for('product.edit_product', product_id=product.id) }}">Editar</a> | 
+                            
+                            <form method="POST" action="{{ url_for('product.delete_product', product_id=product.id) }}" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir o produto {{ product.name }}?');">
+                                <input type="submit" value="Excluir" style="background: none; border: none; color: red; cursor: pointer; padding: 0;">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

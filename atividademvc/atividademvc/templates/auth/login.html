@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h1>Acesso ao Sistema</h1>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }} 
+        
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.remember() }}
+            {{ form.remember.label }}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+        
+    </form>
+    <p>Não tem uma conta? <a href="{{ url_for('auth.register') }}">Registre-se aqui</a>.</p>
+{% endblock %}
